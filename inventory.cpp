@@ -27,11 +27,20 @@ inventory& inventory::operator =(const inventory& originalInventory) {
 
     while(otherNode) {
         currentNode = new itemNode;
+
+        if(currentNode) {
+            *currentNode = *otherNode; // Using overloaded itemNode operator
+                                       // on dereferenced pointers.
+        }
+
+        if(_head == NULL) {
+            _head = currentNode;
+        }
+
         if(tempNode) {
             tempNode->setNext(currentNode);
         }
-        *currentNode = *otherNode; // Using overloaded itemNode operator
-                                   // on dereferenced pointers.
+
         tempNode = currentNode;
         otherNode = otherNode->getNext();
     }

@@ -40,8 +40,8 @@ double itemNode::getWeight() const {
     return _item.getWeight();
 }
 
-item itemNode::getItem() const {
-    return _item;
+const item& itemNode::getItem() const {
+    return this->_item;
 }
 
 int itemNode::getCount() const {

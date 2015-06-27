@@ -24,7 +24,7 @@ class itemNode {
 
         char* getName() const;
         double getWeight() const;
-        item getItem() const;
+        const item& getItem() const;
         int getCount() const;
         itemNode* getNext() const;
 

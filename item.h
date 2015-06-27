@@ -35,6 +35,7 @@ class item {
         bool operator ==(const item& other) const;
         bool operator !=(const item& other) const;
         bool operator <=(const item& other) const;
+        bool operator >=(const item& other) const;
 };
 
 int CIstrcmp(const char* str1, const char* str2);

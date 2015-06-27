@@ -88,11 +88,15 @@ bool item::operator ==(const item& other) const {
 }
 
 bool item::operator !=(const item& other) const {
-    return (!(_name == other.getName()));
+    return (!(*this == other));
 }
 
 bool item::operator <=(const item& other) const {
-    return _name < other.getName() || _name == other.getName();
+    return (!(*this > other));
+}
+
+bool item::operator >=(const item& other) const {
+    return (!(*this < other));
 }
 
 int CIstrcmp(const char* str1, const char* str2) {

@@ -98,50 +98,35 @@ void inventory::AddItem(const item& newItem) {
     if(newNode) {
         newNode->setItem(newItem);
         itemNode *currentNode = _head;
+        itemNode *previousNode = NULL;
 
-        // First, check to see if the node goes before the head.
+        // Go to the first node that is greater than newItem.
+        // previousNode will either be NULL, (in which case it's
+        // at the head of the list) equal to newItem,
+        // (in which case it will be incremented)
+        // or less than newItem (in which case newNode will be
+        // put between previousNode and currentNode).
 
-        if(_head == NULL || newItem < _head->getItem()) {
+        while(currentNode && newItem >= currentNode->getItem()) {
+            previousNode = currentNode;
+            currentNode = currentNode->getNext();
+        }
+
+        if(previousNode == NULL) {
             newNode->setNext(_head);
             _head = newNode;
             addWeightAndCount(newNode, newItem);
         }
 
-        // Next, check to see if the newitem's name is equal to the head. If so,
-        // increment the counters and add weight after checking to make sure
-        // that the weights are the same.
-
-        else if(newItem == _head->getItem()) {;
-            addWeightAndCount(_head, newItem);
+        else if(newItem == previousNode->getItem()) {
+            addWeightAndCount(previousNode, newItem);
             delete newNode;
         }
 
-        // Next, go through the list to find a point where currentNode
-        // is greater than or equal to newItem.
-
         else {
-            while(currentNode->getNext() && 
-                  newItem > currentNode->getNext()->getItem()) {
-
-                currentNode = currentNode->getNext();
-            }
-
-            // Check to see if the newitem's name is equal to the node. If
-            // so, increment the counters and add weight, and delete newNode.
-
-            if(currentNode->getNext() != NULL &&
-               newItem == currentNode->getNext()->getItem()) {
-                addWeightAndCount(currentNode->getNext(), newItem);
-                delete newNode;
-            }
-
-            // Otherwise, stick it between currentNode and currentNode.next.
-
-            else {
-                newNode->setNext(currentNode->getNext());
-                currentNode->setNext(newNode);
-                addWeightAndCount(newNode, newItem);
-            }
+            previousNode->setNext(newNode);
+            newNode->setNext(currentNode);
+            addWeightAndCount(newNode, newItem);
         }
     }
 

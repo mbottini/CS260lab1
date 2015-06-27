@@ -98,7 +98,6 @@ void inventory::AddItem(const item& newItem) {
     if(newNode) {
         newNode->setItem(newItem);
         itemNode *currentNode = _head;
-        itemNode *previousNode;
 
         // First, check to see if the node goes before the head.
 

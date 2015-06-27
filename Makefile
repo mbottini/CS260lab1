@@ -1,6 +1,6 @@
 CC=g++
 
-CFLAGS=-c -Wall
+CFLAGS=-c -Wall -Wno-write-strings
 
 all: lab1
 

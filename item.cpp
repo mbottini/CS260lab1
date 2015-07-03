@@ -99,14 +99,20 @@ bool item::operator >=(const item& other) const {
     return (!(*this < other));
 }
 
+// Case Insensitive string comparison.
+// Copies str1 and str2 to new locations, reduces these new locations
+// to only lowercase, and compares them with strcmp.
 int CIstrcmp(const char* str1, const char* str2) {
     int returnValue = 0;
     char *insensitiveStr1 = makeAndCopy(str1);
     char *insensitiveStr2 = makeAndCopy(str2);
-    toLower(insensitiveStr1);
-    toLower(insensitiveStr2);
 
-    returnValue = strcmp(insensitiveStr1, insensitiveStr2);
+    if(insensitiveStr1 && insensitiveStr2) {
+        toLower(insensitiveStr1);
+        toLower(insensitiveStr2);
+
+        returnValue = strcmp(insensitiveStr1, insensitiveStr2);
+    }
     
     delete [] insensitiveStr1;
     delete [] insensitiveStr2;
